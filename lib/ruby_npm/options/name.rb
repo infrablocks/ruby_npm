@@ -10,7 +10,7 @@ module RubyNPM
       end
 
       def name
-        "-#{without_prefix}"
+        "--#{without_prefix}"
       end
 
       alias to_s name
