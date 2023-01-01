@@ -15,7 +15,7 @@ module RubyNPM
       }.map do |key, name|
         definition(
           name: name, option_type: :standard, value_type: :string,
-          repeatable: true, separator: ' ',
+          repeatable: true,
           override_keys: { singular: false, plural: key }
         )
       end,
@@ -32,8 +32,7 @@ module RubyNPM
         --workspace
       ].map do |o|
         definition(
-          name: o, option_type: :standard, value_type: :string,
-          separator: ' '
+          name: o, option_type: :standard, value_type: :string
         )
       end,
 
@@ -56,12 +55,15 @@ module RubyNPM
         --fund
         --global
         --global-style
+        --if-present
         --ignore-scripts
         --include-workspace-root
         --install-links
+        --json
         --legacy-bundling
         --package-lock
         --package-lock-only
+        --parseable
         --production
         --save
         --save-bundle
@@ -73,8 +75,7 @@ module RubyNPM
         --strict-peer-deps
       ].map do |o|
         definition(
-          name: o, option_type: :standard, value_type: :boolean,
-          separator: ' '
+          name: o, option_type: :standard, value_type: :boolean
         )
       end
     ].flatten.freeze

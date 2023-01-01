@@ -74,7 +74,7 @@ module RubyNPM
           .for_command(@binary)
           .with_environment_variables(environment)
           .with_options_after_subcommands
-          .with_option_separator('=')
+          .with_option_separator(' ')
           .with_appliables(@options.resolve(options, parameters))
           .with_subcommands(subcommands)
           .with_arguments(arguments(parameters).compact.flatten).build
