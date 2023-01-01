@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ruby_npm (0.1.0.pre.2)
+    ruby_npm (0.1.0.pre.3)
       immutable-struct (~> 2.4)
       lino (~> 3.0)
 
@@ -182,4 +182,4 @@ DEPENDENCIES
   yard
 
 BUNDLED WITH
-   2.4.1
+   2.4.2
