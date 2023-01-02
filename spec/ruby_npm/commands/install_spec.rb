@@ -85,6 +85,11 @@ describe RubyNPM::Commands::Install do
     described_class, subcommand, :install_strategy
   )
 
+  it_behaves_like(
+    'a command with an option',
+    described_class, subcommand, :save_prefix
+  )
+
   %i[
     audit
     bin_links

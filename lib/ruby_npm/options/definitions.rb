@@ -64,6 +64,15 @@ module RubyNPM
     ].flatten.freeze
 
     DEPENDENCY_DEFINITIONS = [
+      # string options
+      %w[
+        --save-prefix
+      ].map do |o|
+        definition(
+          name: o, option_type: :standard, value_type: :string
+        )
+      end,
+
       # string repeatable options
       {
         omit: '--omit',

@@ -36,6 +36,7 @@ module RubyNPM
         --save-exact
         --save-optional
         --save-peer
+        --save-prefix
         --save-prod
       ].freeze
 
