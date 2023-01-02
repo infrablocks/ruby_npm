@@ -1,35 +1,28 @@
 # frozen_string_literal: true
 
 module RubyNPM
+  # rubocop:disable Metrics/ModuleLength
   module Options
-    DEFINITIONS = [
-      # concrete definitions
-      [
-        workspaces
-      ],
+    WORKSPACE_DEFINITIONS = [
+      workspaces,
+      definition(
+        name: '--workspace',
+        option_type: :standard,
+        value_type: :string
+      ),
+      definition(
+        name: '--include-workspace-root',
+        option_type: :standard,
+        value_type: :boolean
+      )
+    ].freeze
 
-      # string repeatable options
-      {
-        omit: '--omit',
-        include: '--include'
-      }.map do |key, name|
-        definition(
-          name: name, option_type: :standard, value_type: :string,
-          repeatable: true,
-          override_keys: { singular: false, plural: key }
-        )
-      end,
-
+    LOGGING_DEFINITIONS = [
       # string options
       %w[
-        --color
-        --install-strategy
         --loglevel
         --logs-dir
         --logs-max
-        --script-shell
-        --tag
-        --workspace
       ].map do |o|
         definition(
           name: o, option_type: :standard, value_type: :string
@@ -43,28 +36,48 @@ module RubyNPM
         --verbose
       ].map do |o|
         definition(name: o, option_type: :flag, value_type: :boolean)
+      end
+    ].flatten.freeze
+
+    GLOBAL_DEFINITIONS = [
+      # string options
+      %w[
+        --color
+        --script-shell
+      ].map do |o|
+        definition(
+          name: o, option_type: :standard, value_type: :string
+        )
       end,
 
       # boolean options
       %w[
-        --audit
-        --bin-links
         --dry-run
         --force
         --foreground-scripts
-        --fund
-        --global
-        --global-style
-        --if-present
         --ignore-scripts
-        --include-workspace-root
-        --install-links
-        --json
-        --legacy-bundling
-        --package-lock
-        --package-lock-only
-        --parseable
-        --production
+      ].map do |o|
+        definition(
+          name: o, option_type: :standard, value_type: :boolean
+        )
+      end
+    ].flatten.freeze
+
+    DEPENDENCY_DEFINITIONS = [
+      # string repeatable options
+      {
+        omit: '--omit',
+        include: '--include'
+      }.map do |key, name|
+        definition(
+          name: name, option_type: :standard, value_type: :string,
+          repeatable: true,
+          override_keys: { singular: false, plural: key }
+        )
+      end,
+
+      # boolean options
+      %w[
         --save
         --save-bundle
         --save-dev
@@ -72,6 +85,50 @@ module RubyNPM
         --save-optional
         --save-peer
         --save-prod
+      ].map do |o|
+        definition(
+          name: o, option_type: :standard, value_type: :boolean
+        )
+      end
+    ].flatten.freeze
+
+    OUTPUT_DEFINITIONS = [
+      # boolean options
+      %w[
+        --json
+      ].map do |o|
+        definition(
+          name: o, option_type: :standard, value_type: :boolean
+        )
+      end
+    ].flatten.freeze
+
+    OTHER_DEFINITIONS = [
+      # string options
+      %w[
+        --access
+        --install-strategy
+        --otp
+        --tag
+      ].map do |o|
+        definition(
+          name: o, option_type: :standard, value_type: :string
+        )
+      end,
+
+      # boolean options
+      %w[
+        --audit
+        --bin-links
+        --fund
+        --global
+        --global-style
+        --if-present
+        --install-links
+        --legacy-bundling
+        --package-lock
+        --package-lock-only
+        --parseable
         --strict-peer-deps
       ].map do |o|
         definition(
@@ -79,5 +136,15 @@ module RubyNPM
         )
       end
     ].flatten.freeze
+
+    DEFINITIONS = (
+      WORKSPACE_DEFINITIONS +
+        LOGGING_DEFINITIONS +
+        GLOBAL_DEFINITIONS +
+        DEPENDENCY_DEFINITIONS +
+        OUTPUT_DEFINITIONS +
+        OTHER_DEFINITIONS
+    )
   end
+  # rubocop:enable Metrics/ModuleLength
 end

@@ -4,10 +4,10 @@ require_relative 'base'
 
 module RubyNPM
   module Commands
-    class RunScript < Base
+    class Publish < Base
       # @!visibility private
       def subcommands
-        %w[run-script]
+        %w[publish]
       end
 
       # @!visibility private
@@ -17,17 +17,15 @@ module RubyNPM
           Options::Sets::LOGGING_OPTIONS +
           Options::Sets::GLOBAL_OPTIONS +
           %w[
-            --if-present
+            --access
             --json
-            --parseable
+            --otp
+            --tag
           ]
       end
 
       def arguments(parameters)
-        script_arguments =
-          parameters[:arguments] ? ['--'] + parameters[:arguments] : []
-
-        [parameters[:script]] + script_arguments
+        [parameters[:package_spec]]
       end
     end
   end

@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-describe RubyNPM::Commands::Install do
-  subcommand = 'install'
+describe RubyNPM::Commands::Publish do
+  subcommand = 'publish'
 
   before do
     RubyNPM.configure do |config|
@@ -20,19 +20,9 @@ describe RubyNPM::Commands::Install do
     described_class, subcommand
   )
 
-  # used in code path, not sure whether to include
-  # - before
-  # - cache
-  # - format-package-lock
-  # - lockfile-version
-  # - progress
-  # - rebuild-bundle
-  # - replace-registry-host
-  # - save-prefix
-
   it_behaves_like(
-    'a command with an argument array',
-    described_class, subcommand, :package_specs
+    'a command with an argument',
+    described_class, subcommand, :package_spec
   )
 
   it_behaves_like(
@@ -61,54 +51,42 @@ describe RubyNPM::Commands::Install do
   )
 
   it_behaves_like(
-    'a command with an array option',
-    described_class, subcommand, :workspaces, singular_support: true
-  )
-
-  it_behaves_like(
-    'a command with an array option',
-    described_class, subcommand, :include
-  )
-
-  it_behaves_like(
-    'a command with an array option',
-    described_class, subcommand, :omit
-  )
-
-  it_behaves_like(
     'a command with an option',
     described_class, subcommand, :tag
   )
 
   it_behaves_like(
     'a command with an option',
-    described_class, subcommand, :install_strategy
+    described_class, subcommand, :access
   )
 
+  it_behaves_like(
+    'a command with an option',
+    described_class, subcommand, :otp
+  )
+
+  it_behaves_like(
+    'a command with an array option',
+    described_class, subcommand, :workspaces, singular_support: true
+  )
+
+  # used in code path, not sure whether to include
+  # - before
+  # - cache
+  # - offline
+  # - pack-destination
+  # - prefer-offline
+  # - prefer-online
+  # - prefix
+  # - replace-registry-host
+  # - user-agent
+
   %i[
-    audit
-    bin_links
     dry_run
-    force
     foreground_scripts
-    fund
-    global
-    global_style
     ignore_scripts
     include_workspace_root
-    install_links
     json
-    legacy_bundling
-    package_lock
-    package_lock_only
-    save
-    save_bundle
-    save_dev
-    save_exact
-    save_optional
-    save_peer
-    save_prod
-    strict_peer_deps
     workspaces
   ].each do |option|
     it_behaves_like(

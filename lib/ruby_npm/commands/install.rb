@@ -13,50 +13,31 @@ module RubyNPM
       # @!visibility private
       # rubocop:disable Metrics/MethodLength
       def options
-        %w[
-          --audit
-          --bin-links
-          --color
-          --dry-run
-          --force
-          --foreground-scripts
-          --fund
-          --global
-          --global-style
-          --ignore-scripts
-          --include
-          --include-workspace-root
-          --install-links
-          --install-strategy
-          --legacy-bundling
-          --loglevel
-          --logs-dir
-          --logs-max
-          --omit
-          --package-lock
-          --package-lock-only
-          --production
-          --quiet
-          --save
-          --save-bundle
-          --save-dev
-          --save-exact
-          --save-optional
-          --save-peer
-          --save-prod
-          --script-shell
-          --silent
-          --strict-peer-deps
-          --tag
-          --verbose
-          --workspace
-          --workspaces
-        ] + super
+        super +
+          Options::Sets::WORKSPACE_OPTIONS +
+          Options::Sets::LOGGING_OPTIONS +
+          Options::Sets::GLOBAL_OPTIONS +
+          Options::Sets::DEPENDENCY_OPTIONS +
+          %w[
+            --audit
+            --bin-links
+            --fund
+            --global
+            --global-style
+            --install-links
+            --install-strategy
+            --json
+            --legacy-bundling
+            --package-lock
+            --package-lock-only
+            --strict-peer-deps
+            --tag
+          ]
       end
       # rubocop:enable Metrics/MethodLength
 
       def arguments(parameters)
-        [parameters[:packages]]
+        [parameters[:package_specs]]
       end
     end
   end
