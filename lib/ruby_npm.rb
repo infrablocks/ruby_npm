@@ -26,6 +26,16 @@ module RubyNPM
            parameters, invocation_options)
     end
 
+    def publish(parameters = {}, invocation_options = {})
+      exec(RubyNPM::Commands::Publish,
+           parameters, invocation_options)
+    end
+
+    def run_script(parameters = {}, invocation_options = {})
+      exec(RubyNPM::Commands::RunScript,
+           parameters, invocation_options)
+    end
+
     private
 
     def exec(command_class, parameters, invocation_options)

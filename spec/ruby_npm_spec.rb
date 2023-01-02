@@ -8,7 +8,9 @@ end
 
 describe RubyNPM do
   commands = {
-    install: RubyNPM::Commands::Install
+    install: RubyNPM::Commands::Install,
+    publish: RubyNPM::Commands::Publish,
+    run_script: RubyNPM::Commands::RunScript
   }
 
   it 'has a version number' do
