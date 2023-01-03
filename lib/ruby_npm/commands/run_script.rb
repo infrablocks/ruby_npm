@@ -16,9 +16,9 @@ module RubyNPM
           Options::Sets::WORKSPACE_OPTIONS +
           Options::Sets::LOGGING_OPTIONS +
           Options::Sets::GLOBAL_OPTIONS +
+          Options::Sets::OUTPUT_OPTIONS +
           %w[
             --if-present
-            --json
             --parseable
           ]
       end

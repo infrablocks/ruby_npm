@@ -18,6 +18,7 @@ module RubyNPM
           Options::Sets::LOGGING_OPTIONS +
           Options::Sets::GLOBAL_OPTIONS +
           Options::Sets::DEPENDENCY_OPTIONS +
+          Options::Sets::OUTPUT_OPTIONS +
           %w[
             --audit
             --bin-links
@@ -26,7 +27,6 @@ module RubyNPM
             --global-style
             --install-links
             --install-strategy
-            --json
             --legacy-bundling
             --package-lock
             --package-lock-only
