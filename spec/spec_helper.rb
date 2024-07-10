@@ -15,7 +15,6 @@ require 'ruby_npm'
 O = RubyNPM::Options
 
 Dir[File.join(__dir__, 'support', '**', '*.rb')]
-  .sort
   .each { |f| require f }
 
 RSpec.configure do |config|

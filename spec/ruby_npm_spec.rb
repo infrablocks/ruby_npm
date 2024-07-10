@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'tempfile'
+require 'stringio'
 
 class RVIncluded
   include RubyNPM
@@ -18,11 +20,16 @@ describe RubyNPM do
   end
 
   it 'allows commands to be run without configure having been called' do
-    allow(Open4).to(receive(:spawn))
+    executor = Lino::Executors::Mock.new
+
+    Lino.configure do |config|
+      config.executor = executor
+    end
 
     described_class.install(directory: 'some/path/to/configuration')
 
-    expect(Open4).to(have_received(:spawn))
+    expect(executor.executions.first.command_line.string)
+      .to(eq('npm install'))
   end
 
   describe 'configuration' do
@@ -77,7 +84,7 @@ describe RubyNPM do
     end
 
     it 'allows stdout stream to be overridden' do
-      stdout = StringIO.new
+      stdout = Tempfile.new
 
       described_class.configure do |config|
         config.stdout = stdout
@@ -91,7 +98,7 @@ describe RubyNPM do
     end
 
     it 'allows stderr stream to be overridden' do
-      stderr = StringIO.new
+      stderr = Tempfile.new
 
       described_class.configure do |config|
         config.stderr = stderr
@@ -101,11 +108,11 @@ describe RubyNPM do
     end
 
     it 'uses empty string for stdin by default' do
-      expect(described_class.configuration.stdin).to eq('')
+      expect(described_class.configuration.stdin).to(be_nil)
     end
 
     it 'allows stdin stream to be overridden' do
-      stdin = StringIO.new("some\nuser\ninput\n")
+      stdin = Tempfile.new("some\nuser\ninput\n")
 
       described_class.configure do |config|
         config.stdin = stdin

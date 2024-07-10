@@ -7,7 +7,7 @@ module RubyNPM
     module Values
       class Base < ImmutableStruct.new(:value)
         def initialize(value)
-          super(value: value)
+          super(value:)
         end
       end
     end

@@ -7,7 +7,7 @@ module RubyNPM
     module Values
       class KeyValue < ImmutableStruct.new(:key, :value)
         def initialize(key, value)
-          super(key: key, value: value)
+          super(key:, value:)
         end
 
         def resolve

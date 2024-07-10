@@ -79,7 +79,7 @@ module RubyNPM
         include: '--include'
       }.map do |key, name|
         definition(
-          name: name, option_type: :standard, value_type: :string,
+          name:, option_type: :standard, value_type: :string,
           repeatable: true,
           override_keys: { singular: false, plural: key }
         )
