@@ -133,6 +133,7 @@ namespace :documentation do
 
     skip_ci = args.skip == 'true'
 
+    sh('git', 'add', '.')
     sh('git', 'commit',
        '-a',
        '-m', "Generate latest documentation#{skip_ci ? ' [ci skip]' : ''}")
